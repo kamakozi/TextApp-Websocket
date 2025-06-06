@@ -11,10 +11,11 @@ class User {
 protected:
     std::string username;
     std::string password;
+    std::string email;
     std::string role;
 public:
     ~User();
-    User(std::string username,std::string password,std::string role);
+    User(std::string username,std::string password,std::string email,std::string role);
     [[nodiscard]] std::string getUsername()const;
     [[nodiscard]] std::string getPassword()const;
     [[nodiscard]] std::string getRole()const;

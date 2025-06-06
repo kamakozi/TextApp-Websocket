@@ -22,6 +22,8 @@ add_library(websocketLib
         LoadTables/LoadTables.cpp
         ReadEnvFile/ReadEnvFile.cpp
         DataBaseSingleton/DataBaseSingleton.cpp
+        ../Auth/PasswordHashing/PasswordHashing.cpp
+        ../../Common/User.cpp
 )
 target_include_directories(websocketLib
         PUBLIC

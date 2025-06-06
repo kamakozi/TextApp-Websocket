@@ -7,7 +7,7 @@ INSERT INTO role (roles)
 VALUES ('admin'), ('user')
     ON CONFLICT DO NOTHING;
 
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       username TEXT UNIQUE NOT NULL,
       hashed_password TEXT NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 CREATE TABLE IF NOT EXISTS message(
     id SERIAL PRIMARY KEY,
     sender_id INTEGER NOT NULL,
-    FOREIGN KEY (sender_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
     content TEXT NOT NULL,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
