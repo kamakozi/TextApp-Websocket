@@ -5,7 +5,6 @@
 #include "PasswordHashing/PasswordHashing.h"
 
 #include <bcrypt/BCrypt.hpp>
-#include <bcrypt/bcrypt.h>
 #include <string>
 
 std::string PasswordHashing::getHashedPassword(const std::string &password) {

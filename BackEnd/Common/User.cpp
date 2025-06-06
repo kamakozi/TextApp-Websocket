@@ -5,11 +5,12 @@
 #include "User.h"
 
 #include <iostream>
-User::User(std::string username, std::string password,std::string email, std::string role):
+User::User(std::string username, std::string password,std::string email, std::string role,std::string token):
 username(std::move(username)),
 password(std::move(password)),
 email(std::move(email)),
-role(std::move(role))
+role(std::move(role)),
+token(std::move(token))
 {};
 
 User::~User() = default;
@@ -23,3 +24,8 @@ std::string User::getRole() const {
 std::string User::getUsername() const {
     return username;
 }
+
+std::string User::getToken() const {
+    return token;
+}
+

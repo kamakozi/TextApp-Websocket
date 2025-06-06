@@ -26,6 +26,8 @@ add_executable(ChatAppFrontend
         LoginWindow/LoginWindow.h
         RegisterWindow/RegisterWindow.cpp
         RegisterWindow/RegisterWindow.h
+        MainWindow/MainWindow.cpp
+        MainWindow/MainWindow.h
         ../../BackEnd/Server/Auth/RegisterUser/RegiterUser.cpp
         ../../BackEnd/Common/User.cpp)
 
@@ -37,6 +39,7 @@ target_include_directories(ChatAppFrontend
         ${CMAKE_SOURCE_DIR}/BackEnd/Server/Src
         ${CMAKE_SOURCE_DIR}/BackEnd/Common
         ${CMAKE_SOURCE_DIR}/BackEnd/Server/Include
+
 )
 find_library(BCRYPT_LIB bcrypt PATHS /opt/homebrew/lib REQUIRED)
 

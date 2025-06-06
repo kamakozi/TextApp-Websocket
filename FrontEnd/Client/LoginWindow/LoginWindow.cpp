@@ -1,5 +1,7 @@
 #include "LoginWindow.h"
 #include "../RegisterWindow/RegisterWindow.h"
+#include "LoginUser/LoginUser.h"
+#include "../MainWindow/MainWindow.h"
 
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -10,6 +12,7 @@
 #include <QtWidgets/QGraphicsOpacityEffect>
 #include <QtCore/QPropertyAnimation>
 #include <QtCore/QDebug>
+#include <QMessageBox>
 
 QWidget* LoginWindow::loginWindow() {
 
@@ -95,7 +98,23 @@ QWidget* LoginWindow::loginWindow() {
     });
 
 
+
     QObject::connect(loginBtn,&QPushButton::clicked,[=] {
+        LoginUser lu;
+
+        QString qname = usernameInput->text();
+        QString qpass = passwordInput->text();
+
+
+        MainWindow mw;
+        auto newUser = lu.loginUser(qname.toStdString(),qpass.toStdString());
+        if (newUser) {
+            QMessageBox::information(window,"User found", "Login successful");
+            QWidget* newWindow = mw.mainWindow(std::move(newUser));
+            newWindow->show();
+            window->close();
+        }
+
 
     });
 

@@ -19,15 +19,16 @@ std::unique_ptr<User> RegisterUser::createUser(std::string username,std::string 
         pqxx::connection& conn = DataBaseSingleton::getInstance();
         pqxx::work xtn(conn);
 
-        std::string Query = "INSERT INTO users (username,hashed_password,role_id) VALUES "
+        std::string Query = "INSERT INTO users (username,hashed_password,role_id,email) VALUES "
                             "(" + xtn.quote(username) + " , " +
                                   xtn.quote(hashedPassword) + " , " +
-                                  xtn.quote(2) + ")";
+                                  xtn.quote(2) + " , " +
+                                  xtn.quote(email) + ")";
 
         xtn.exec(Query);
         xtn.commit();
 
-        return std::make_unique<User>(username,hashedPassword,email,"user");
+        return std::make_unique<User>(username,hashedPassword,email,"user","");
     }catch (std::exception& e) {
         std::cerr << "Unable to register user! " << e.what() << std::endl;
         return nullptr;

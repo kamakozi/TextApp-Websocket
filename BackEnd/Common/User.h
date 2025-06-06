@@ -13,12 +13,14 @@ protected:
     std::string password;
     std::string email;
     std::string role;
+    std::string token;
 public:
     ~User();
-    User(std::string username,std::string password,std::string email,std::string role);
+    User(std::string username,std::string password,std::string email,std::string role,std::string token);
     [[nodiscard]] std::string getUsername()const;
     [[nodiscard]] std::string getPassword()const;
     [[nodiscard]] std::string getRole()const;
+    [[nodiscard]] std::string getToken()const;
 };
 
 

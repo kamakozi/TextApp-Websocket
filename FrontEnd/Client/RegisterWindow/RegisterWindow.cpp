@@ -121,7 +121,12 @@ QWidget* RegisterWindow::registerWindow() {
         auto user = ru.createUser(username.toStdString(),password.toStdString(),email.toStdString());
 
         if (user) {
+            QMessageBox::information(window,"Success!","Register successful");
             std::cout << "Registered" << std::endl;
+            LoginWindow lw;
+            QWidget* newWindow = lw.loginWindow();
+            newWindow->show();
+            window->close();
         }
         return window;
     });

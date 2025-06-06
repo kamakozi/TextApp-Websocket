@@ -16,6 +16,9 @@ find_package(OpenSSL REQUIRED)
 
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Include)
+include_directories(${CMAKE_SOURCE_DIR}/BackEnd/Libs/jwt-cpp/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Libs/Jwt-cpp/include
+)
 
 
 add_library(websocketLib
@@ -24,10 +27,19 @@ add_library(websocketLib
         DataBaseSingleton/DataBaseSingleton.cpp
         ../Auth/PasswordHashing/PasswordHashing.cpp
         ../../Common/User.cpp
+        ../Auth/LoginUser/LoginUser.cpp
+        ../Auth/JwaToken/JwaToken.cpp
+
 )
+
+target_link_libraries(websocketLib
+        PRIVATE OpenSSL::Crypto
+)
+
 target_include_directories(websocketLib
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/../Include
+        include_directories(${CMAKE_SOURCE_DIR}/BackEnd/Libs/jwt-cpp/include)
 )
 
 add_executable(ChatAppServer
@@ -43,6 +55,7 @@ target_link_libraries(ChatAppServer
         z
         pqxx
         pq
+        OpenSSL::Crypto
 )
 
 
