@@ -1,12 +1,15 @@
 #include "MainWindow.h"
+
+#include <iostream>
+
 #include "SearchForUser/SearchForUser.h"
 #include "UserProfileWindow/UserProfileWindow.h"
 
 #include <QtWidgets>
 #include <memory>
 
-QWidget* MainWindow::mainWindow(std::unique_ptr<User> u) {
-    user = std::move(u);
+QWidget* MainWindow::mainWindow(std::shared_ptr<User> u) {
+    this->user = u;
 
     QWidget* window = new QWidget;
     window->resize(1000, 700);
@@ -167,6 +170,7 @@ QWidget* MainWindow::mainWindow(std::unique_ptr<User> u) {
     bool* isMenuOpen = new bool(false);
 
     QObject::connect(menuBtn, &QPushButton::clicked, [=]() mutable {
+
         int y = topBar->height();
         int startX = *isMenuOpen ? window->width() - 200 : window->width();
         int endX   = *isMenuOpen ? window->width() : window->width() - 200;
@@ -180,7 +184,7 @@ QWidget* MainWindow::mainWindow(std::unique_ptr<User> u) {
         anim->setEasingCurve(QEasingCurve::InOutQuad);
 
         if (!*isMenuOpen)
-            menuPanel->setVisible(true); // show when opening
+            menuPanel->setVisible(true);
 
         QObject::connect(anim, &QPropertyAnimation::finished, [=]() {
             if (*isMenuOpen)
@@ -191,12 +195,12 @@ QWidget* MainWindow::mainWindow(std::unique_ptr<User> u) {
         anim->start(QAbstractAnimation::DeleteWhenStopped);
     });
 
-    QObject::connect(profileButton,&QPushButton::clicked,[=] {
-        UserProfileWindow upw;
-        QWidget* newWindow = upw.userProfileWindow(*user);
-        newWindow->show();
-        window->close();
-    });
+    QObject::connect(profileButton, &QPushButton::clicked, [this,window,u] {
+    UserProfileWindow upw;
+    QWidget* newWindow = upw.userProfileWindow(*u);
+    newWindow->show();
+    window->close();
+});
 
     window->setLayout(mainLayout);
     window->show();

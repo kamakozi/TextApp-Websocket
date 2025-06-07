@@ -12,7 +12,7 @@
 
 class ChangeDetails {
 public:
-    QWidget* changeDetails(std::unique_ptr<User>u);
+    QWidget* changeDetails(std::shared_ptr<User>u);
 };
 
 

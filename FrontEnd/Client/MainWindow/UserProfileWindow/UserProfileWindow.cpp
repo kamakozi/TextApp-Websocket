@@ -1,4 +1,7 @@
 #include "UserProfileWindow.h"
+
+#include <iostream>
+
 #include "ChangeDeatils/ChangeDetails.h"
 #include "../../Common/User.h"
 #include "../MainWindow.h"
@@ -12,6 +15,7 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QPainter>
 #include <memory>
+#include <__ostream/basic_ostream.h>
 
 QWidget *UserProfileWindow::userProfileWindow(User& u) {
     QWidget* window = new QWidget;
@@ -19,6 +23,7 @@ QWidget *UserProfileWindow::userProfileWindow(User& u) {
     window->setWindowTitle("Profile");
     window->setStyleSheet("background-color: #1e1e2e; color: white; font-family: 'Segoe UI';");
 
+    std::cout << "Name: " << u.getUsername() << std::endl;
 
     QPixmap rawImg(100, 100);
     rawImg.fill(Qt::gray);

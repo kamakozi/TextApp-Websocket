@@ -12,9 +12,9 @@
 
 class MainWindow {
 private:
-    std::unique_ptr<User>user;
+    std::shared_ptr<User>user;
 public:
-    QWidget* mainWindow(std::unique_ptr<User> u);
+    QWidget* mainWindow(std::shared_ptr<User> u);
 };
 
 

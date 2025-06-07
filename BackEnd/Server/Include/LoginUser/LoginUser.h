@@ -7,6 +7,6 @@
 #define LOGINUSER_H
 class LoginUser {
 public:
-    std::unique_ptr<User>loginUser(std::string username,std::string password);
+    std::shared_ptr<User>loginUser(std::string username,std::string password);
 };
 #endif //LOGINUSER_H

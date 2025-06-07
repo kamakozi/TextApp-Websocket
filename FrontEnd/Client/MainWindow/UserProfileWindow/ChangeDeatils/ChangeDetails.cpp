@@ -1,13 +1,19 @@
 #include "ChangeDetails.h"
 #include "../../MainWindow.h"
+#include "UserProfile/ChangeUserCredentials/ChangeUserCredentials.h"
 
+
+#include <iostream>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QHBoxLayout>
+#include <QMessageBox>
+#include <string>
+#include <__ostream/basic_ostream.h>
 
-QWidget* ChangeDetails::changeDetails(std::unique_ptr<User> u) {
+QWidget* ChangeDetails::changeDetails(std::shared_ptr<User> u) {
     QWidget* window = new QWidget;
     window->resize(1000, 700);
     window->setWindowTitle("Edit User");
@@ -70,6 +76,34 @@ QWidget* ChangeDetails::changeDetails(std::unique_ptr<User> u) {
     layout->addWidget(confirmPassword);
     layout->addWidget(savePassword);
     layout->addWidget(backBtn);
+
+    QObject::connect(saveUsername, &QPushButton::clicked, [window, u = std::move(u), editUsername]() mutable {
+        QString username = editUsername->text();
+        std::string newUsername = username.toStdString();
+        std::string oldUsername = u->getUsername();
+        std::cout << "Old username: " << u->getUsername() << std::endl;
+
+        if (username.isEmpty()) {
+            QMessageBox::information(window, "Invalid username", "Username cannot be empty");
+            return;
+        }
+
+        ChangeUserCredentials cuc;
+        std::string newName = cuc.changeUsername(newUsername, oldUsername);
+
+        if (newName.empty()) {
+            QMessageBox::information(window, "Username change failed", "Unable to change username");
+            return;
+        }
+
+        u->setUsername(newName);
+        QMessageBox::information(window, "Success", "Username changed!");
+
+        ChangeDetails cd;
+        QWidget* newWindow = cd.changeDetails(std::move(u));
+        newWindow->show();
+        window->close();
+    });
 
     QObject::connect(backBtn,&QPushButton::clicked,[window,u = std::move(u)]()mutable {
         MainWindow mw;

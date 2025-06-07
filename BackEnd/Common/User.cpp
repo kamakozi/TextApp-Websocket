@@ -13,6 +13,13 @@ role(std::move(role)),
 token(std::move(token))
 {};
 
+User::User(const User& other)
+    : username(other.username),
+      password(other.password),
+      email(other.email),
+      role(other.role),
+      token(other.token) {}
+
 User::~User() = default;
 
 std::string User::getPassword() const {
@@ -27,5 +34,9 @@ std::string User::getUsername() const {
 
 std::string User::getToken() const {
     return token;
+}
+
+void User::setUsername(const std::string &newUsername) {
+    username = newUsername;
 }
 

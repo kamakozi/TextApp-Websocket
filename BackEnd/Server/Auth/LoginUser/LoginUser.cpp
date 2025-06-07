@@ -13,7 +13,7 @@
 #include <pqxx/pqxx>
 
 
-std::unique_ptr<User> LoginUser::loginUser(std::string username, std::string password) {
+std::shared_ptr<User> LoginUser::loginUser(std::string username, std::string password) {
     try{
     pqxx::connection& conn = DataBaseSingleton::getInstance();
 

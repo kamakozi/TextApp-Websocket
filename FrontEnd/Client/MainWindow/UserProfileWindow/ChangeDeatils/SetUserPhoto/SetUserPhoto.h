@@ -9,7 +9,7 @@
 
 class SetUserPhoto {
 public:
-    QWidget setUserPhoto();
+    QWidget* setUserPhoto();
 };
 
 

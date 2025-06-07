@@ -30,6 +30,7 @@ add_library(websocketLib
         ../Auth/LoginUser/LoginUser.cpp
         ../Auth/JwaToken/JwaToken.cpp
         SearchForUser/SearchForUser.cpp
+        UserProfile/ChangerUserCredentials/ChangeUserCredentials.cpp
 
 )
 
