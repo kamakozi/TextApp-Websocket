@@ -89,16 +89,6 @@ QWidget* LoginWindow::loginWindow() {
     layout->addLayout(registerLayout);
 
 
-    QObject::connect(loginBtn, &QPushButton::clicked, [=]() {
-        qDebug() << "Login: " << usernameInput->text() << passwordInput->text();
-    });
-
-    QObject::connect(registerBtn, &QPushButton::clicked, [=]() {
-        qDebug() << "Switch to Register screen!";
-    });
-
-
-
     QObject::connect(loginBtn,&QPushButton::clicked,[=] {
         LoginUser lu;
 
@@ -113,6 +103,8 @@ QWidget* LoginWindow::loginWindow() {
             QWidget* newWindow = mw.mainWindow(std::move(newUser));
             newWindow->show();
             window->close();
+        }else {
+            QMessageBox::critical(window,"Wrong credentials","Wrong credentials!");
         }
 
 

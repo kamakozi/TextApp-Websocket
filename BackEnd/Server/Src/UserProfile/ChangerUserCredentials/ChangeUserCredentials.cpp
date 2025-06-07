@@ -1,5 +1,6 @@
 #include "DataBaseSingleton/DataBaseSingleton.h"
 #include "../Include/UserProfile/ChangeUserCredentials/ChangeUserCredentials.h"
+#include "bcrypt/BCrypt.hpp"
 
 #include <iostream>
 #include <pqxx/pqxx>
@@ -42,5 +43,45 @@ std::string ChangeUserCredentials::changeUsername(std::string& newUsername,std::
     } catch (const std::exception& e) {
         std::cerr << "Unable to change username: " << e.what() << std::endl;
         return "";
+    }
+}
+
+
+std::string ChangeUserCredentials::changePassword(std::string &newPassword, std::string &oldPassword,std::string& username) {
+
+    try {
+    pqxx::connection& conn = DataBaseSingleton::getInstance();
+
+        pqxx::work xtn(conn);
+
+        std::string QueryPassword = "SELECT hashed_password FROM users WHERE username = " +xtn.quote(username);
+
+       pqxx::result r = xtn.exec(QueryPassword);
+        if (r.empty()) {
+            std::cerr << "User not found!" << std::endl;
+            return "";
+        }
+
+        std::string getPassword = r[0]["hashed_password"].c_str();
+
+        if (!BCrypt::validatePassword(oldPassword,getPassword)) {
+            std::cout << "Old Password (user input): " << oldPassword << std::endl;
+            std::cout << "Stored Hashed Password: " << getPassword << std::endl;
+            std::cerr << "Invalid password" << std::endl;
+            return "";
+        }
+
+        std::string newHashedPassword = BCrypt::generateHash(newPassword);
+
+        std::string changePassword = "UPDATE users SET hashed_password = " +xtn.quote(newHashedPassword) +
+                                     " WHERE username = " + xtn.quote(username) + ";";
+
+        xtn.exec(changePassword);
+        xtn.commit();
+
+        return newHashedPassword;
+
+    }catch (std::exception& e) {
+        std::cerr << "Unable to change password" << e.what() << std::endl;
     }
 }

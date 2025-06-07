@@ -19,6 +19,8 @@ QWidget* ChangeDetails::changeDetails(std::shared_ptr<User> u) {
     window->setWindowTitle("Edit User");
     window->setStyleSheet("background-color: #1e1e2e; color: white; font-family: 'Segoe UI';");
 
+
+    std::cout << u->getUsername() << std::endl;
     auto* layout = new QVBoxLayout(window);
     layout->setContentsMargins(100, 80, 100, 80);
     layout->setSpacing(20);
@@ -76,6 +78,32 @@ QWidget* ChangeDetails::changeDetails(std::shared_ptr<User> u) {
     layout->addWidget(confirmPassword);
     layout->addWidget(savePassword);
     layout->addWidget(backBtn);
+
+    QObject::connect(savePassword,&QPushButton::clicked,[window, u = std::move(u),oldPassword,editPassword]()mutable {
+        QString oPassword = oldPassword->text();
+        QString nPassword = editPassword->text();
+
+        std::string oPass = oPassword.toStdString();
+        std::string nPass = nPassword.toStdString();
+
+        std::string username = u->getUsername();
+
+        ChangeUserCredentials cuc;
+        std::string newPassword = cuc.changePassword(nPass,oPass,username);
+
+        if (newPassword.empty()) {
+            QMessageBox::information(window,"Failed to change password","Failed to change password");
+            return window;
+        }
+        u->setPassword(newPassword);
+
+        QMessageBox::information(window,"Success","Password changed!");
+        ChangeDetails cd;
+        QWidget* newWindow = cd.changeDetails(u);
+        newWindow->show();
+        window->close();
+
+    });
 
     QObject::connect(saveUsername, &QPushButton::clicked, [window, u = std::move(u), editUsername]() mutable {
         QString username = editUsername->text();

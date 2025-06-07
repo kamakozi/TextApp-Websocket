@@ -25,6 +25,7 @@ public:
     [[nodiscard]] std::string getRole()const;
     [[nodiscard]] std::string getToken()const;
     void setUsername(const std::string& newUsername);
+    void setPassword(const std::string& newPassword);
 };
 
 

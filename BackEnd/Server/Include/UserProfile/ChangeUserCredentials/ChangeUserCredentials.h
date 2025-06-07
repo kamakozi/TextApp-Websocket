@@ -10,6 +10,7 @@
 class ChangeUserCredentials {
 public:
     std::string changeUsername(std::string& newUsername,std::string& oldUsername);
+    std::string changePassword(std::string& newPassword,std::string& oldPassword,std::string& username);
 };
 
 #endif //CHANGEUSERCREDENTIALS_H
