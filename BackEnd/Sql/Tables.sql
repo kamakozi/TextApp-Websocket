@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
       role_id INTEGER NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       token TEXT,
+      photo BYTEA,
       FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE SET NULL
     );
 

@@ -29,7 +29,11 @@ add_executable(ChatAppFrontend
         MainWindow/MainWindow.cpp
         MainWindow/MainWindow.h
         ../../BackEnd/Server/Auth/RegisterUser/RegiterUser.cpp
-        ../../BackEnd/Common/User.cpp)
+        ../../BackEnd/Common/User.cpp
+        MainWindow/UserProfileWindow/UserProfileWindow.cpp
+        MainWindow/UserProfileWindow/UserProfileWindow.h
+        MainWindow/UserProfileWindow/ChangeDeatils/ChangeDetails.cpp
+        MainWindow/UserProfileWindow/ChangeDeatils/ChangeDetails.h)
 
 
 

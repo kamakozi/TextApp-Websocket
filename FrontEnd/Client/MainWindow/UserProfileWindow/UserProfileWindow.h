@@ -4,11 +4,14 @@
 
 #ifndef USERPROFILEWINDOW_H
 #define USERPROFILEWINDOW_H
+#include "../../Common/User.h"
 
+#include <QtWidgets/QWidget>
 
 
 class UserProfileWindow {
-
+public:
+    QWidget* userProfileWindow(User& u);
 };
 
 
