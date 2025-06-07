@@ -32,6 +32,7 @@ add_executable(ChatAppFrontend
         ../../BackEnd/Common/User.cpp)
 
 
+
 target_include_directories(ChatAppFrontend
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/../../BackEnd/Common
