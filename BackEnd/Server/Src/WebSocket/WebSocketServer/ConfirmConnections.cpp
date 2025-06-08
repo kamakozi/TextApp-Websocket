@@ -2,6 +2,7 @@
 // Created by ziga zoric on 07.06.25.
 //
 #include "WebSocketServer.h"
+#include "../ClientHandeler/ClientHandler.h"
 
 #include <iostream>
 #include <unistd.h>
@@ -9,6 +10,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <thread>
 
 void WebSocketServer::confirmConnection() {
     while (true) {
@@ -23,6 +25,9 @@ void WebSocketServer::confirmConnection() {
 
         std::cout << "Client connected from " << inet_ntoa(clientAddr.sin_addr) << std::endl;
 
-        close(clientSocket);
+        std::thread([clientSocket]() {
+            ClientHandler handler(clientSocket);
+            handler.handle();
+        }).detach();
     }
 }

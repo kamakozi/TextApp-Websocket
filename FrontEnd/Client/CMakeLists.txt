@@ -33,7 +33,7 @@ add_executable(ChatAppFrontend
         MainWindow/UserProfileWindow/UserProfileWindow.cpp
         MainWindow/UserProfileWindow/UserProfileWindow.h
         MainWindow/UserProfileWindow/ChangeDeatils/ChangeDetails.cpp
-        MainWindow/UserProfileWindow/ChangeDeatils/ChangeDetails.h)
+        MainWindow/UserProfileWindow/ChangeDeatils/ChangeDetails.h )
 
 
 

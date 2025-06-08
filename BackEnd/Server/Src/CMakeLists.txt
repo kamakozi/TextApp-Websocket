@@ -33,6 +33,9 @@ add_library(websocketLib
         UserProfile/ChangerUserCredentials/ChangeUserCredentials.cpp
         WebSocket/WebSocketServer/ConfirmConnections.cpp
         WebSocket/WebSocketServer/WebSocketServer.cpp
+        WebSocket/ClientHandeler/ClientHandler.cpp
+        WebSocket/ClientHandeler/ClientHandler.h
+        WebSocket/Utils/Helpers/EndianHelper.h
 
 )
 

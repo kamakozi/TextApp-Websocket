@@ -20,15 +20,15 @@ void WebSocketServer::setupSocket() {
         exit(EXIT_FAILURE);
     }
 
-    // Allow reuse of address
+
     int opt = 1;
     setsockopt(webSocket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
 
     sockaddr_in serverAddr;
     std::memset(&serverAddr, 0, sizeof(serverAddr));
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY; // listen on all interfaces
-    serverAddr.sin_port = htons(port);       // convert to network byte order
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
+    serverAddr.sin_port = htons(port);
 
     if (bind(webSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
         perror("Bind failed");
