@@ -1,38 +1,54 @@
+
 # TextApp
 
-TextApp is a modern, full-stack messaging application designed with a C++ backend and a Qt6-based frontend interface. It supports real-time communication via WebSockets, secure user registration and login, and PostgreSQL as the primary database system.
+TextApp is a modern, full-stack messaging application built in pure C++ with a Qt6 frontend and a WebSocket-based backend. It supports real-time communication, secure authentication, PostgreSQL integration, and modular architecture suitable for scalable desktop applications.
 
 ## Overview
 
-This project aims to provide a modular, high-performance communication platform, suitable for desktop environments. The backend is implemented in C++ using modern practices such as CMake, libpqxx, and environment-based configuration management. The frontend is built with Qt6, offering a responsive and native user interface.
+This project demonstrates how C++ can be used to build a complete client-server chat platform using:
+- Qt6 for UI
+- libpqxx for PostgreSQL DB
+- WebSockets for real-time messaging
+- JWT for session security
+- bcrypt for password hashing
+- Modular architecture for future scalability
 
-## Features
+## Key Features
 
-### Backend
-- Built with modern C++ (C++17)
-- CMake project structure for maintainability
-- Secure database connection using PostgreSQL (libpqxx)
-- Singleton pattern for managing database connections
-- Environment variable management for credentials and configuration
-- User registration and login handling (planned)
-- Real-time messaging via WebSockets (planned)
-- SQL schema auto-loading from `Tables.sql`
+### Backend (C++17)
+- Modular architecture with clean separation (Auth, WebSocket, UserProfile, etc.)
+- PostgreSQL integration using libpqxx with prepared statements
+- JWT-based authentication (jwt-cpp)
+- Password hashing using bcrypt (OpenSSL-based)
+- WebSocket Server implemented from scratch
+  - Manual frame parsing
+  - Client handler management
+  - Real-time message broadcasting
+- .env file support for secure configuration loading
+- Multithreading support using std::thread for handling clients
+- Singleton pattern for database connection manager
+- User registration and login
+- User profile editing (change username/password)
+- User image upload support
 
-### Frontend
-- Developed using Qt6 (Widgets and QML)
-- User-friendly interface for authentication and chat
-- Real-time updates and communication
-- Plans for chat history, typing indicators, and user presence
+### Frontend (Qt6)
+- Native desktop UI using Qt Widgets
+- Login and Register windows
+- Profile section (change username/password and upload image)
+- Communicates with backend via WebSocket
+- Modular UI structure: LoginWindow, MainWindow, UserProfileWindow, etc.
 
 ## Technologies Used
 
-- C++
-- CMake
-- libpqxx (PostgreSQL driver)
-- Qt6 (Widgets and WebSockets)
+- C++17
+- Qt6 (Widgets)
+- libpqxx (PostgreSQL)
 - OpenSSL
-- std::thread and memory-safe design patterns
-- Docker (for database containerization)
+- jwt-cpp
+- bcrypt
+- std::thread
+- CMake
+- Docker (PostgreSQL container)
 
 ## Build Instructions
 
@@ -48,7 +64,7 @@ make
 
 ### Frontend (Qt6)
 
-Open the Qt project in Qt Creator or use:
+Open the Qt project in Qt Creator or:
 
 ```bash
 cd FrontEnd/Client
@@ -58,15 +74,44 @@ make
 ./ChatAppFrontend
 ```
 
+### Run Both Frontend and Backend Together
+
+```bash
+cd build
+./run_all
+```
+
+## Project Structure
+
+```
+appchat/
+├── BackEnd/
+│   ├── Server/
+│   │   ├── Src/                  # All source files: WebSocket, Auth, DB, etc.
+│   │   ├── Include/              # All headers
+│   │   └── Libs/                 # jwt-cpp and other libs
+│   └── Common/                   # Shared classes like User
+├── FrontEnd/
+│   └── Client/                   # Qt6 GUI
+│       └── MainWindow/           # Includes UserProfile editing, photo, etc.
+├── CMakeLists.txt
+├── docker-compose.yml
+└── database.env
+```
+
 ## Future Roadmap
 
-- Implement secure password hashing (bcrypt)
-- Add RESTful APIs as fallback for WebSocket communication
-- Add logging and error reporting
-- Integrate unit and integration tests
-- Support for message persistence and offline notifications
-- Improve frontend UX with QML animations and transitions
+- Secure password hashing (done)
+- JWT-based token system (done)
+- Environment-based config (done)
+- Unit and integration tests
+- Message persistence
+- Offline push or polling fallback
+- Add/friend system
+- RCS-style encryption
+- Message delivery status (sent, delivered, seen)
+- Add RESTful fallback for WebSocket API
+- Improve frontend UX (transitions, themes, etc.)
 
-## License
 
-This project is currently under development.
+This project is under development
