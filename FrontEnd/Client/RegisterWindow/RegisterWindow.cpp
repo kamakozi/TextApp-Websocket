@@ -4,17 +4,14 @@
 
 #include "../LoginWindow/LoginWindow.h"
 #include "../../../BackEnd/Server/Include/RegisterUser/RegisterUser.h"
-#include "User.h"
 
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QGraphicsOpacityEffect>
 #include <QtCore/QPropertyAnimation>
-#include <QtCore/QDebug>
 #include <QMessageBox>
 
 QWidget* RegisterWindow::registerWindow() {

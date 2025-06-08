@@ -3,8 +3,8 @@
 #include "LoginUser/LoginUser.h"
 #include "../MainWindow/MainWindow.h"
 
+
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -19,6 +19,7 @@ QWidget* LoginWindow::loginWindow() {
     auto* window = new QWidget;
     window->setFixedSize(500, 400);
     window->setStyleSheet("background-color: #1e1e2f; color: #ddd; font-family: 'Segoe UI';");
+
 
 
     auto* fade = new QGraphicsOpacityEffect(window);
